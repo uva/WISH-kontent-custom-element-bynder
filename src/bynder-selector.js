@@ -168,7 +168,7 @@ function openCompactView() {
           continue;
         }
 
-        if (!config.unlimitedItems && assets.length >= maxItems || selectedAssets > maxItems) {
+        if (!config.unlimitedItems && (assets.length >= maxItems || selectedAssets > maxItems)) {
           messages.push(
             `The asset \'<b>${asset.name}</b>\' can't be selected because the maximum of ${maxItems} item(s) has already been reached.`
           );
