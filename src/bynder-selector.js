@@ -1,6 +1,7 @@
 var currentValue = null;
 var isDisabled = true;
 var config = null;
+var maxItems = 1;
 
 function updateDisabled(disabled) {
   const enabledElements = $(".selector").add(".remove");
@@ -163,6 +164,13 @@ function openCompactView() {
         if (!asset.isPublic && !config.allowNonPublic) {
           messages.push(
             `The asset \'<b>${asset.name}</b>\' can't be selected because it is not marked as <i>Public</i> in Bynder.`
+          );
+          continue;
+        }
+
+        if (!config.unlimitedItems && assets.length >= maxItems) {
+          messages.push(
+            `The asset \'<b>${asset.name}</b>\' can't be selected because the maximum of ${maxItems} item(s) has already been reached.`
           );
           continue;
         }
