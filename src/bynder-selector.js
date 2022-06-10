@@ -167,6 +167,27 @@ function openCompactView() {
           );
           continue;
         }
+        
+        // Check if de required derivatives are available
+        if (Array.isArray(config.requiredDerivatives) && config.requiredDerivatives.length > 0) {
+          // Get available derivatives for selected asset
+          var derivatives = Object.keys(asset.files);
+          var matchedDerivatives = [];
+          
+          // Check if any of the required derivatives is available, then put on de matches list
+          config.requiredDerivatives.forEach(r => {
+            var matched = derivatives.some(d => d.includes(r));
+            if (matched) matchedDerivatives.push(r);
+          });
+          
+          // Now check if all required derivatives are in the match list
+          if (!matchedDerivatives.every(m => config.requiredDerivatives.includes(m))) {
+            messages.push(
+                `The asset \'<b>${asset.name}</b>\' can't be selected because the required derivatives \'<b>${config.requiredDerivatives.join(", ")}</b>\' are not available.`
+            );
+            continue;
+          }
+        }
 
         if (!config.unlimitedItems && (assets.length >= maxItems || selectedAssets > maxItems)) {
           messages.push(
