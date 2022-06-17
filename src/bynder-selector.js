@@ -181,7 +181,7 @@ function openCompactView() {
           });
           
           // Now check if all required derivatives are in the match list
-          if (matchedDerivatives.every(m => config.requiredDerivatives.includes(m))) {
+          if (matchedDerivatives.length == 0 || !matchedDerivatives.every(m => config.requiredDerivatives.includes(m))) {
             messages.push(
                 `The asset \'<b>${asset.name}</b>\' can't be selected because the required derivatives \'<b>${config.requiredDerivatives.join(", ")}</b>\' are not available.`
             );
